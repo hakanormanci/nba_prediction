@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>NBA Prediction History</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <a href="/">Current Predictions</a> | <a href="/history">History</a>
+        </nav>
+        <h1>Prediction History</h1>
+        
+        <div class="summary-stats">
+            <table>
+                <tr>
+                    <th>Total Games</th>
+                    <th>Correct</th>
+                    <th>Incorrect</th>
+                    <th>Accuracy</th>
+                    <th>Avg Points Diff</th>
+                </tr>
+                <tr>
+                    <td>{{ stats.total_games }}</td>
+                    <td class="correct">{{ stats.correct_predictions }}</td>
+                    <td class="incorrect">{{ stats.incorrect_predictions }}</td>
+                    <td>{{ "%.1f"|format(stats.accuracy_percentage) }}%</td>
+                    <td>{{ "%.1f"|format(stats.avg_points_diff) }}</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="results">
+            {% for result in results %}
+                <div class="game-card {% if result.prediction_correct %}correct{% else %}incorrect{% endif %}">
+                    <div class="game-date">{{ result.date.strftime('%Y-%m-%d %H:%M') }}</div>
+                    <div class="teams">
+                        {{ result.away_team }} @ {{ result.home_team }}
+                    </div>
+                    <div class="prediction">
+                        <p>Predicted Winner: <span class="winner">{{ result.predicted_winner }}</span> ({{ result.win_probability }})</p>
+                        <p>Actual Winner: <span class="actual">{{ result.actual_winner }}</span></p>
+                        <p>Predicted Total: {{ result.predicted_total }}</p>
+                        <p>Actual Total: {{ result.actual_total }}</p>
+                        <p>Total Difference: {{ result.total_difference }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>

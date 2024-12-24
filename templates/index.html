@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>NBA Game Predictions</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>NBA Game Predictions</h1>
+        <div class="predictions">
+            {% for prediction in predictions %}
+                <div class="game-card">
+                    <div class="game-date">{{ prediction.date.strftime('%Y-%m-%d %H:%M') }}</div>
+                    <div class="teams">{{ prediction.away_team }} @ {{ prediction.home_team }}</div>
+                    <div class="prediction">
+                        <p>Predicted Winner: <span class="winner">{{ prediction.predicted_winner }}</span></p>
+                        <p>Win Probability: {{ prediction.win_probability }}</p>
+                        <p>Predicted Total: {{ prediction.predicted_total }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
