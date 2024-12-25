@@ -26,3 +26,6 @@ model_training.log
 # Local development
 .DS_Store
 Thumbs.db
+
+
+.idea/
